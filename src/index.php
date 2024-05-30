@@ -1,6 +1,18 @@
 <?php
+// Définir le fichier de la page par défaut
+$page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+$file = "$page.php";
+
+// Vérifier si le fichier existe et l'inclure
+if (file_exists($file)) {
+    include 'sidebar.php'; 
+    include $file;
+} else {
+    echo "Page non trouvée";
+}
+
 // Chemin vers le fichier JSON
-$file_path = '../../data/listCargo.json';
+$file_path = 'data/listCargo.json';
 
 // Fonction pour lire les données du fichier JSON
 function readData() {
@@ -34,7 +46,7 @@ function writeData($data) {
 }
 
 // Définir l'en-tête de la réponse comme JSON
-header('Content-Type: application/json');
+//header('Content-Type: application/json');
 
 // Gérer les requêtes GET pour récupérer les données
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
